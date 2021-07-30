@@ -3,8 +3,9 @@
     <v-app-bar
       fixed
       app
+      color="cyan"
     >
-      <v-btn nuxt to='/' text link>
+      <v-btn to="/" text>
         <v-toolbar-title v-text="title" />
       </v-btn>
     </v-app-bar>
@@ -25,3 +26,10 @@ export default {
   }
 }
 </script>
+
+<style>
+div[data-app='true'] {
+  background: url('/assets/background.jpg') no-repeat center center fixed !important;
+  background-size: cover;
+}
+</style>
