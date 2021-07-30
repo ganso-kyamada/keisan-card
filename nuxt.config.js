@@ -3,7 +3,7 @@ import colors from 'vuetify/es5/util/colors'
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - keisan-card',
+    titleTemplate: '%s - けいさんカード',
     title: 'keisan-card',
     meta: [
       { charset: 'utf-8' },
@@ -51,7 +51,7 @@ export default {
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
-      lang: 'en'
+      lang: 'ja'
     }
   },
 
