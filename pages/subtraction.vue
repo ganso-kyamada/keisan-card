@@ -19,7 +19,7 @@
         persistent
         width="300"
       >
-        <v-card :color="isCorrect ? 'green' : 'red'">
+        <v-card dark :color="isCorrect ? 'green' : 'red'">
           <v-card-text class="text-center py-2">
             {{ isCorrect ? 'せいかい！' : 'ふせいかい。。' }}
           </v-card-text>

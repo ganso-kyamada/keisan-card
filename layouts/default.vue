@@ -1,10 +1,6 @@
 <template>
   <v-app dark>
-    <v-app-bar
-      fixed
-      app
-      color="cyan"
-    >
+    <v-app-bar app color="cyan">
       <v-btn to="/" text>
         <v-toolbar-title v-text="title" />
       </v-btn>
@@ -28,7 +24,7 @@ export default {
 </script>
 
 <style>
-div[data-app='true'] {
+#app {
   background: url('/assets/background.jpg') no-repeat center center fixed !important;
   background-size: cover;
 }
