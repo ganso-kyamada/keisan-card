@@ -11,23 +11,13 @@
         <v-card-actions>
           <v-row>
             <v-col cols="12">
-              <v-btn
-                color="primary"
-                nuxt
-                to="/addition"
-                block
-              >
+              <v-btn color="primary" nuxt to="/addition" block>
                 たしざんをはじめる
               </v-btn>
             </v-col>
 
             <v-col cols="12">
-              <v-btn
-                color="primary"
-                nuxt
-                to="/subtraction"
-                block
-              >
+              <v-btn color="primary" nuxt to="/subtraction" block>
                 ひきざんをはじめる
               </v-btn>
             </v-col>

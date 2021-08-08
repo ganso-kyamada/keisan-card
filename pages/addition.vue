@@ -3,22 +3,21 @@
     <v-col cols="12" class="text-center">
       <questions-card
         v-if="!isFinished"
-        :items="additions"
+        :items="questions"
         calc-type="addition"
         :current-index="currentIndex"
         :disabled="dialog"
         @answer="answer"
       ></questions-card>
 
-      <finished-card v-else calc-type="addition">
-      </finished-card>
+      <finished-card
+        v-else
+        :all-clear="allClear"
+        calc-type="addition"
+        @revenge="revengeQuestion"
+      ></finished-card>
 
-      <v-dialog
-        v-model="dialog"
-        hide-overlay
-        persistent
-        width="300"
-      >
+      <v-dialog v-model="dialog" hide-overlay persistent width="300">
         <v-card dark :color="isCorrect ? 'green' : 'red'">
           <v-card-text class="text-center py-2">
             {{ isCorrect ? 'せいかい！' : 'ふせいかい。。' }}
@@ -28,8 +27,7 @@
     </v-col>
 
     <v-col cols="12" class="text-center">
-      <answers-card :items="answers" calc-type="addition">
-      </answers-card>
+      <answers-card :items="answers" calc-type="addition"> </answers-card>
     </v-col>
   </v-row>
 </template>
@@ -42,13 +40,16 @@ import FinishedCard from '@/components/FinishedCard'
 
 export default {
   components: {
-    QuestionsCard, AnswersCard, FinishedCard
+    QuestionsCard,
+    AnswersCard,
+    FinishedCard
   },
   data() {
     return {
       dialogVal: false,
       currentIndex: 0,
       answers: [],
+      questions: [],
       isCorrect: false,
     }
   },
@@ -66,11 +67,17 @@ export default {
       },
     },
     question() {
-      return this.additions[this.currentIndex]
+      return this.questions[this.currentIndex]
     },
     isFinished() {
-      return this.additions.length === this.answers.length
+      return this.questions.length === this.answers.length
+    },
+    allClear() {
+      return this.answers.every((answer) => answer[3])
     }
+  },
+  mounted() {
+    this.questions = this.additions
   },
   methods: {
     answer(value) {
@@ -79,6 +86,25 @@ export default {
       this.isCorrect = value === correct
       this.answers.push(this.question.concat([value, this.isCorrect]))
       this.currentIndex++
+    },
+    revengeQuestion() {
+      const answers = this.answers
+      const wrongQuestions = []
+      this.currentIndex = 0
+      this.answers = []
+      this.questions = []
+      answers.forEach((answer) => {
+        if (answer[3]) {
+          this.answers.push(answer)
+          this.currentIndex++
+        } else {
+          wrongQuestions.push(answer.slice(0, 2))
+        }
+      })
+
+      this.questions = this.answers
+        .map((answer) => answer.slice(0, 2))
+        .concat(wrongQuestions)
     }
   },
   head() {

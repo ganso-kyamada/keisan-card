@@ -10,7 +10,8 @@
     </v-card-text>
 
     <v-card-actions class="justify-center">
-      <v-btn :href="moreLink">もういちどチャレンジする</v-btn>
+      <v-btn v-if="allClear" :href="moreLink">もういちどチャレンジする</v-btn>
+      <v-btn v-else @click="$emit('revenge')">まちがったもんだいをとく</v-btn>
       <v-btn href="/">もどる</v-btn>
     </v-card-actions>
   </v-card>
@@ -22,6 +23,10 @@ export default {
     calcType: {
       type: String,
       required: true,
+    },
+    allClear: {
+      type: Boolean,
+      default: true
     }
   },
   computed: {
