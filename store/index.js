@@ -14,7 +14,19 @@ function shuffle(array) {
   return array
 }
 
+function multiplicationTableList() {
+  const result = []
+
+  for (let i = 1; i <= 9; i++) {
+    for (let j = 1; j <= 9; j++) {
+      result.push([i, j])
+    }
+  }
+  return result
+}
+
 export const state = () => ({
+  dialogValue: false,
   addList: [
     [1, 1],
     [1, 2],
@@ -108,8 +120,35 @@ export const state = () => ({
     [2, 1],
     [2, 2],
     [1, 1],
-  ]
+  ],
+  multiplicationList: multiplicationTableList()
 })
+
+export const actions = {
+  async correctAnswer({ dispatch }, { type, question, answer }) {
+    switch (type) {
+      case 'addition':
+        return await dispatch('answerForAddition', { question, answer })
+      case 'subtraction':
+        return await dispatch('answerForSubtraction', { question, answer })
+      case 'multiplication':
+        return await dispatch('answerForMultiplication', { question, answer })
+    }
+  },
+  answerForAddition(_, { question, answer }) {
+    const [a, b] = question
+    console.log(a + b === Number(answer))
+    return a + b === Number(answer)
+  },
+  answerForSubtraction(_, { question, answer }) {
+    const [a, b] = question
+    return a - b === Number(answer)
+  },
+  answerForMultiplication(_, { question, answer }) {
+    const [a, b] = question
+    return a * b === Number(answer)
+  }
+}
 
 export const getters = {
   additions: (state) => {
@@ -117,5 +156,8 @@ export const getters = {
   },
   subtractions: (state) => {
     return shuffle(state.subList)
+  },
+  multiplications: (state) => {
+    return shuffle(state.multiplicationList)
   }
 }

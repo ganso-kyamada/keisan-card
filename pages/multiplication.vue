@@ -4,7 +4,7 @@
       <questions-card
         v-if="!isFinished"
         :items="questions"
-        calc-type="subtraction"
+        calc-type="multiplication"
         :current-index="currentIndex"
         :disabled="dialog"
         @answer="answer"
@@ -13,7 +13,7 @@
       <finished-card
         v-else
         :all-clear="allClear"
-        calc-type="subtraction"
+        calc-type="multiplication"
         @revenge="revengeQuestion"
       ></finished-card>
 
@@ -27,7 +27,7 @@
     </v-col>
 
     <v-col cols="12" class="text-center">
-      <answers-card :items="answers" calc-type="subtraction"></answers-card>
+      <answers-card :items="answers" calc-type="multiplication"> </answers-card>
     </v-col>
   </v-row>
 </template>
@@ -54,7 +54,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['subtractions']),
+    ...mapGetters(['multiplications']),
     dialog: {
       get() {
         return this.dialogVal
@@ -77,13 +77,13 @@ export default {
     }
   },
   mounted() {
-    this.questions = this.subtractions
+    this.questions = this.multiplications
   },
   methods: {
     ...mapActions(['correctAnswer']),
     answer(value) {
       this.dialog = true
-      this.correctAnswer({ type: 'subtraction', question: this.question, answer: value }).then((isCorrect) => {
+      this.correctAnswer({ type: 'multiplication', question: this.question, answer: value }).then((isCorrect) => {
         this.isCorrect = isCorrect
         this.answers.push([...this.question, value, isCorrect])
         this.currentIndex++
@@ -110,7 +110,7 @@ export default {
     }
   },
   head() {
-    return { title: 'ひきざん' }
+    return { title: 'かけ算' }
   }
 }
 </script>

@@ -21,6 +21,12 @@
                 ひきざんをはじめる
               </v-btn>
             </v-col>
+
+            <v-col cols="12">
+              <v-btn color="primary" nuxt to="/multiplication" block>
+                かけざんをはじめる
+              </v-btn>
+            </v-col>
           </v-row>
         </v-card-actions>
       </v-card>

@@ -40,7 +40,13 @@ export default {
   },
   computed: {
     calc() {
-      return this.calcType === 'addition' ? '+' : '-'
+      const attirbutes = {
+        addition: '+',
+        subtraction: '-',
+        multiplication: '×',
+        division: '÷'
+      }
+      return attirbutes[this.calcType]
     },
   }
 }

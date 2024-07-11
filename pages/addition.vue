@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import QuestionsCard from '@/components/QuestionsCard'
 import AnswersCard from '@/components/AnswersCard'
 import FinishedCard from '@/components/FinishedCard'
@@ -80,12 +80,14 @@ export default {
     this.questions = this.additions
   },
   methods: {
+    ...mapActions(['correctAnswer']),
     answer(value) {
       this.dialog = true
-      const correct = this.question[0] + this.question[1]
-      this.isCorrect = value === correct
-      this.answers.push(this.question.concat([value, this.isCorrect]))
-      this.currentIndex++
+      this.correctAnswer({ type: 'addition', question: this.question, answer: value }).then((isCorrect) => {
+        this.isCorrect = isCorrect
+        this.answers.push([...this.question, value, isCorrect])
+        this.currentIndex++
+      })
     },
     revengeQuestion() {
       const answers = this.answers

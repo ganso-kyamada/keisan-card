@@ -10,7 +10,7 @@
     </v-card-text>
 
     <v-card-actions>
-      <v-row>
+      <v-row v-if="calculatorMode">
         <v-col v-for="(_, i) in new Array(9)" :key="`val-${i}`" cols="4">
           <v-btn fab :disabled="disabled" color="primary" @click="$emit('answer', i + 1)">
             {{ i + 1 }}
@@ -35,6 +35,31 @@
             @click="$emit('answer', 0)"
           >
             0
+          </v-btn>
+        </v-col>
+      </v-row>
+      <v-row v-else>
+        <v-col cols="12" class="text-center">
+          <span
+            class="text-h3"
+            v-text="answerNumber"
+          ></span>
+        </v-col>
+        <v-col cols="12">
+          <v-slider
+            v-model="answerNumber"
+            color="primary"
+            min="1"
+            max="100"
+          ></v-slider>
+        </v-col>
+        <v-col cols="12" class="text-center">
+          <v-btn
+            :disabled="disabled"
+            color="primary"
+            @click="$emit('answer', Number(answerNumber))"
+          >
+            けってい
           </v-btn>
         </v-col>
       </v-row>
@@ -63,12 +88,26 @@ export default {
       required: true,
     }
   },
+  data() {
+    return {
+      answerNumber: 1
+    }
+  },
   computed: {
     question() {
       return this.items[this.currentIndex]
     },
     calc() {
-      return this.calcType === 'addition' ? '+' : '-'
+      const attirbutes = {
+        addition: '+',
+        subtraction: '-',
+        multiplication: '×',
+        division: '÷'
+      }
+      return attirbutes[this.calcType]
+    },
+    calculatorMode() {
+      return this.calcType === 'addition' || this.calcType === 'subtraction'
     }
   }
 }
